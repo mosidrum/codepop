@@ -2,8 +2,8 @@ export const samplePrompts = [
   "Create a function that reverse a string",
   "Implement a todo list component in Rect",
   "Write a python script that download files from a URL",
-  "Create a REST API endpoint for user authentication"
-]
+  "Create a REST API endpoint for user authentication",
+];
 
 export const sampleCode = `// Sample: Fibonacci function
 function fibonacci(n) {
@@ -30,5 +30,5 @@ export const languages = [
   "Ruby",
   "Rust",
   "Swift",
-  "C"
-]
+  "C",
+];

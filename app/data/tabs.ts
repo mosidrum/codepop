@@ -1,4 +1,6 @@
-export const tABS = [
+import type { TabHeaders } from "../types";
+
+export const tabs: TabHeaders[] = [
   {
     id: "explain",
     label: "Explain Code",

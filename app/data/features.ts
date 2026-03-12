@@ -1,17 +1,19 @@
-export const features = [
+import type { Features } from "../types";
+
+export const features: Features[] = [
   {
     title: "Smart Code Analysis",
     description: "Get insights into your code's performance and structure.",
-    icons: "🧠",
+    icon: "🧠",
   },
   {
     title: "Intelligent Debugging",
     description: "Fix errors quickly, efficiently and intelligently.",
-    icons: "💪",
+    icon: "💪",
   },
   {
     title: "Code Generation",
     description: "Generate code for various programming languages.",
-    icons: "🚀",
+    icon: "🚀",
   },
 ];
