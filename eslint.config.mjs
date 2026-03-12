@@ -20,6 +20,11 @@ export default [
       },
       globals: {
         React: "readonly",
+        process: "readonly",
+        console: "readonly",
+        Buffer: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
       },
     },
     plugins: {
