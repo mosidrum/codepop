@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+
+# Build outputs
+.next
+out
+build
+dist
+
+# Misc
+.git
+.vscode
+.idea
+*.log
+package-lock.json
