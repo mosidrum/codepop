@@ -142,6 +142,7 @@ export default [
       "**/build/**",
       "**/.next/**",
       "**/out/**",
+      "commitlint.config.js",
     ],
   },
 ];
