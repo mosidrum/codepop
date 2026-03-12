@@ -45,7 +45,6 @@ export const POST = async (req: NextRequest) => {
 
     return NextResponse.json({ data: response }, { status: 200 });
   } catch (error) {
-    //eslint-disable-next-line no-console
     console.error("Error in API route:", error);
     return NextResponse.json(
       {

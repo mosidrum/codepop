@@ -7,6 +7,7 @@ interface ButtonProps {
   className?: string;
   onClick?: () => void;
   href?: string;
+  disabled?: boolean;
 }
 
 export const Button = ({
@@ -16,12 +17,13 @@ export const Button = ({
   className = "",
   onClick,
   href,
+  disabled = false
 }: ButtonProps) => {
-  const baseStyles = "rounded-lg font-medium transition-all duration-300";
+  const baseStyles = "rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variantStyles = {
     primary:
-      "bg-gradient-to-r from-purple-500 via-blue-500 to-purple-600 text-white hover:shadow-lg hover:shadow-purple-500/50",
+      "bg-gradient-to-r from-purple-500 via-blue-500 to-purple-600 text-white hover:shadow-lg hover:shadow-purple-500/50 disabled:hover:shadow-none",
     secondary: "bg-white/10 text-white hover:bg-white/20",
   };
 
@@ -42,7 +44,7 @@ export const Button = ({
   }
 
   return (
-    <button onClick={onClick} className={classes}>
+    <button onClick={onClick} className={classes} disabled={disabled}>
       {children}
     </button>
   );
