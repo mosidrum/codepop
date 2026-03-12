@@ -1,5 +1,3 @@
 import React from "react";
 
-const Debugging = () => <div>Debugging</div>;
-
-export default Debugging;
+export const Debugging = () => <div>Debugging</div>;
