@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-pnpm run check
+# Pre-commit hook intentionally left minimal
+# Main checks run on pre-push
