@@ -1,69 +1,52 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
-import { Button, Logo } from "../components";
+import {
+  Button,
+  ResultsPanel,
+  Logo,
+  LanguageSelector,
+  ModeSelector,
+} from "../components";
+import { useApiStream } from "../hooks/useApiStream";
 
 type Mode = "explain" | "debug" | "generate";
-
-const modes = [
-  { value: "explain" as Mode, label: "Explain Code", icon: "💡" },
-  { value: "debug" as Mode, label: "Debug Code", icon: "🐛" },
-  { value: "generate" as Mode, label: "Generate Code", icon: "⚡" }
-];
 
 export default function AppPage() {
   const [mode, setMode] = useState<Mode>("explain");
   const [input, setInput] = useState("");
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [language, setLanguage] = useState("JavaScript");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+  const [hasUserScrolled, setHasUserScrolled] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+  const resultRef = useRef<HTMLDivElement>(null);
 
-  const selectedMode = modes.find((m) => m.value === mode)!;
+  const { result, isLoading, submit, stop } = useApiStream({ mode, language });
 
-  const handleSubmit = async () => {
-    if (!input.trim()) return;
-
-    setLoading(true);
-    setResult("");
-
-    try {
-      const endpoint = `/api/${mode}`;
-      const body =
-        mode === "generate"
-          ? { description: input, language: "JavaScript" }
-          : mode === "debug"
-          ? { code: input, error: "" }
-          : { code: input };
-
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
-
-      const data = await response.json();
-
-      if (data.error) {
-        setResult(`Error: ${data.error}`);
-      } else {
-        // Simulate streaming effect
-        const text = data.data;
-        let index = 0;
-        const interval = setInterval(() => {
-          if (index < text.length) {
-            setResult(text.slice(0, index + 1));
-            index++;
-          } else {
-            clearInterval(interval);
-          }
-        }, 10);
-      }
-    } catch (error) {
-      setResult(`Error: ${error instanceof Error ? error.message : "Unknown error"}`);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (resultRef.current && !hasUserScrolled && result) {
+      resultRef.current.scrollTop = resultRef.current.scrollHeight;
     }
+  }, [result, hasUserScrolled]);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const element = e.currentTarget;
+    const isAtBottom =
+      element.scrollHeight - element.scrollTop <= element.clientHeight + 50;
+    setHasUserScrolled(!isAtBottom);
+  };
+
+  const copyToClipboard = (text: string) => {
+    void navigator.clipboard.writeText(text);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
+  };
+
+  const handleSubmit = () => {
+    setHasUserScrolled(false);
+    void submit(input);
   };
 
   return (
@@ -102,42 +85,29 @@ export default function AppPage() {
 
           <main className="flex-1 overflow-y-auto">
             <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
-              <div className="mb-6 relative">
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Select Mode
-                </label>
-                <button
-                  onClick={() => setShowDropdown(!showDropdown)}
-                  className="w-full sm:w-64 flex items-center justify-between px-4 py-3 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-white/10 transition-colors"
-                >
-                  <span className="flex items-center gap-2">
-                    <span>{selectedMode.icon}</span>
-                    <span>{selectedMode.label}</span>
-                  </span>
-                  <span className="text-gray-400">▼</span>
-                </button>
-                {showDropdown && (
-                  <div className="absolute top-full mt-2 w-full sm:w-64 rounded-lg bg-black/90 backdrop-blur-sm border border-white/10 overflow-hidden z-20">
-                    {modes.map((m) => (
-                      <button
-                        key={m.value}
-                        onClick={() => {
-                          setMode(m.value);
-                          setShowDropdown(false);
-                        }}
-                        className="w-full flex items-center gap-2 px-4 py-3 text-left text-white hover:bg-white/10 transition-colors"
-                      >
-                        <span>{m.icon}</span>
-                        <span>{m.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <ModeSelector
+                mode={mode}
+                onModeChange={setMode}
+                isOpen={isDropdownOpen}
+                onToggle={() => setIsDropdownOpen(!isDropdownOpen)}
+                disabled={isLoading}
+              />
+
+              {mode === "generate" && (
+                <LanguageSelector
+                  language={language}
+                  onLanguageChange={setLanguage}
+                  isOpen={isLangDropdownOpen}
+                  onToggle={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
+                  disabled={isLoading}
+                />
+              )}
 
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  {mode === "generate" ? "Describe what you want to build" : "Paste your code"}
+                  {mode === "generate"
+                    ? "Describe what you want to build"
+                    : "Paste your code"}
                 </label>
                 <textarea
                   value={input}
@@ -151,26 +121,38 @@ export default function AppPage() {
                 />
               </div>
 
-              <div className="mb-8">
-                <Button onClick={handleSubmit} className="w-full sm:w-auto" disabled={loading}>
-                  {loading ? "Processing..." : `${selectedMode.label}`}
+              <div className="mb-8 flex gap-3">
+                <Button
+                  onClick={handleSubmit}
+                  className="w-full sm:w-auto"
+                  disabled={isLoading}
+                >
+                  {isLoading
+                    ? "Processing..."
+                    : mode === "explain"
+                      ? "Explain Code"
+                      : mode === "debug"
+                        ? "Debug Code"
+                        : "Generate Code"}
                 </Button>
+                {isLoading && (
+                  <Button
+                    onClick={stop}
+                    variant="secondary"
+                    className="w-full sm:w-auto"
+                  >
+                    Stop
+                  </Button>
+                )}
               </div>
 
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-white mb-3">Results</h3>
-                <div className="p-6 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 min-h-[300px]">
-                  {result ? (
-                    <pre className="text-gray-300 whitespace-pre-wrap font-mono text-sm">
-                      {result}
-                    </pre>
-                  ) : (
-                    <p className="text-gray-400 text-center py-12">
-                      Your results will appear here...
-                    </p>
-                  )}
-                </div>
-              </div>
+              <ResultsPanel
+                result={result}
+                resultRef={resultRef}
+                onScroll={handleScroll}
+                onCopy={copyToClipboard}
+                isCopied={isCopied}
+              />
             </div>
           </main>
         </div>

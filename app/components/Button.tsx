@@ -17,9 +17,10 @@ export const Button = ({
   className = "",
   onClick,
   href,
-  disabled = false
+  disabled = false,
 }: ButtonProps) => {
-  const baseStyles = "rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseStyles =
+    "rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variantStyles = {
     primary:

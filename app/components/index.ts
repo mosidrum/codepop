@@ -8,3 +8,8 @@ export { Logo } from "./Logo";
 export { Pricing } from "./Pricing";
 export { History } from "./History";
 export { Debugging } from "./Debugging";
+export { ModeSelector } from "./ModeSelector";
+export { LanguageSelector } from "./LanguageSelector";
+export { ResultsPanel } from "./ResultsPanel";
+export { CodeBlock } from "./CodeBlock";
+export { FormattedText } from "./FormattedText";

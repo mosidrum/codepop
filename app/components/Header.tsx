@@ -27,7 +27,11 @@ export const Header = () => (
           Transform your development workflow with AI-powered code explanations,
           intelligent debugging, and instant code generation
         </p>
-        <Button size="lg" className="font-semibold hover:shadow-2xl" href="/code">
+        <Button
+          size="lg"
+          className="font-semibold hover:shadow-2xl"
+          href="/code"
+        >
           Get Started Free
         </Button>
       </div>

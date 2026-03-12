@@ -45,7 +45,6 @@ export const POST = async (req: NextRequest) => {
 
     return NextResponse.json({ data: response }, { status: 200 });
   } catch (error) {
-    console.error("Error in API route:", error);
     return NextResponse.json(
       {
         error: error instanceof Error ? error.message : "Unknown server error",
