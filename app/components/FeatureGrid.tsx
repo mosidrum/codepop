@@ -3,35 +3,35 @@ import React from "react";
 const features = [
   {
     icon: "💡",
-    title: "Code Explanation",
+    title: "Explain Any Algorithm",
     description:
-      "Understand complex code instantly with AI-powered explanations in plain English",
+      "Paste a sorting algorithm, a dynamic programming solution, or any tricky snippet — get a clear, plain-English breakdown of exactly what it does and why.",
   },
   {
     icon: "🐛",
-    title: "Smart Debugging",
+    title: "Debug in Seconds",
     description:
-      "Find and fix bugs faster with intelligent error analysis and solutions",
+      "Stuck on a failing test case or a runtime error? Drop your code in and get a precise diagnosis with a fix, not just a guess.",
   },
   {
     icon: "⚡",
-    title: "Code Generation",
+    title: "Solve Challenges Faster",
     description:
-      "Generate production-ready code from natural language descriptions",
+      "Working through HackerRank, LeetCode, or interview prep? Describe the problem and get a clean, working solution with an explanation.",
   },
 ];
 
 export const FeatureGrid = () => (
   <section className="w-full py-16 px-4 sm:px-6 lg:px-8">
     <div className="max-w-6xl mx-auto">
-      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 bg-linear-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-        Powerful Features
+      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 bg-linear-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+        Everything you need to level up
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
         {features.map((feature, index) => (
           <div
             key={index}
-            className="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300"
+            className="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-cyan-500/40 transition-all duration-300"
           >
             <div className="text-4xl mb-4">{feature.icon}</div>
             <h3 className="text-xl font-semibold text-white mb-3">

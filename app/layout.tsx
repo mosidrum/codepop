@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Code Pop - AI Coding Assistant",
-  description: "Explain, debug, and generate code with AI assistance",
+  title: "Code Pop - Your Coding Practice Companion",
+  description: "Understand algorithms, debug code, and solve coding challenges faster with AI assistance",
 };
 
 export default function RootLayout({
@@ -29,9 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="fixed inset-0 bg-[linear-gradient(135deg,#7c3aed_0%,#1e3a8a_33%,#000000_66%,#064e3b_100%)]">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(124,58,237,0.2),transparent,transparent)]" />
-          <div className="absolute inset-0 backdrop-blur-3xl bg-black/30" />
+        <div className="fixed inset-0 bg-[#0d1117]">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,255,136,0.04),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(0,212,255,0.04),transparent_60%)]" />
         </div>
         <div className="relative z-10">{children}</div>
       </body>

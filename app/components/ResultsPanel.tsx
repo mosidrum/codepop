@@ -52,14 +52,14 @@ export const ResultsPanel = ({
   onCopy,
   isCopied,
 }: ResultsPanelProps) => (
-  <div className="mb-6">
-    <div className="flex items-center justify-between mb-3">
+  <div className="flex flex-col flex-1 min-h-0">
+    <div className="flex items-center justify-between mb-3 shrink-0">
       <h3 className="text-lg font-semibold text-white">Results</h3>
     </div>
     <div
       ref={resultRef}
       onScroll={onScroll}
-      className="rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 min-h-[400px] max-h-[600px] overflow-y-auto"
+      className="flex-1 rounded-lg bg-[#161b22] border border-white/10 overflow-y-auto"
     >
       {result ? (
         <div className="space-y-4">
