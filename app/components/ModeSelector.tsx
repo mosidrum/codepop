@@ -14,8 +14,11 @@ const modes = [
   { value: "generate" as Mode, label: "Solve Challenge", icon: "⚡" },
 ];
 
-export const ModeSelector = ({ mode, onModeChange, disabled }: ModeSelectorProps) => {
-  return (
+export const ModeSelector = ({
+  mode,
+  onModeChange,
+  disabled,
+}: ModeSelectorProps) => (
     <div className="mb-6 flex border-b border-white/10">
       {modes.map((m) => (
         <button
@@ -34,4 +37,3 @@ export const ModeSelector = ({ mode, onModeChange, disabled }: ModeSelectorProps
       ))}
     </div>
   );
-};

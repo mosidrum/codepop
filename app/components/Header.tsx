@@ -24,7 +24,9 @@ export const Header = () => (
           Crack Code. Fast.
         </h1>
         <p className="text-gray-300 text-base sm:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
-          Built for engineers who want to move fast. Paste any code, algorithm, or challenge — get instant explanations, debug help, and working solutions.
+          Built for engineers who want to move fast. Paste any code, algorithm,
+          or challenge — get instant explanations, debug help, and working
+          solutions.
         </p>
         <Button
           size="lg"

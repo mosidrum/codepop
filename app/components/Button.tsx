@@ -25,7 +25,8 @@ export const Button = ({
   const variantStyles = {
     primary:
       "bg-gradient-to-r from-cyan-500 to-emerald-500 text-black font-semibold hover:shadow-lg hover:shadow-cyan-500/30 disabled:hover:shadow-none",
-    secondary: "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 hover:text-white",
+    secondary:
+      "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 hover:text-white",
   };
 
   const sizeStyles = {

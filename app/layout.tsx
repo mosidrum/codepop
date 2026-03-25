@@ -16,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Code Pop - Your Coding Practice Companion",
-  description: "Understand algorithms, debug code, and solve coding challenges faster with AI assistance",
+  description:
+    "Understand algorithms, debug code, and solve coding challenges faster with AI assistance",
 };
 
 export default function RootLayout({
