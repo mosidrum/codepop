@@ -42,7 +42,7 @@ const parseContent = (content: string) => {
     parts.push({ type: "text", content: content.slice(lastIndex) });
   }
 
-  return parts.length > 0 ? parts : [{ type: "text", content }];
+  return parts.length > 0 ? parts : [{ type: "text" as const, content }];
 };
 
 export const ResultsPanel = ({

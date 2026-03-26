@@ -42,7 +42,7 @@ export const FormattedText = ({ content }: FormattedTextProps) => (
         if (paragraph.trim().startsWith("#")) {
           const level = paragraph.match(/^#+/)?.[0].length || 1;
           const text = paragraph.replace(/^#+\s*/, "");
-          const Tag = `h${Math.min(level, 6)}` as keyof JSX.IntrinsicElements;
+          const Tag = `h${Math.min(level, 6)}` as React.ElementType;
           return (
             <Tag key={i} className="text-white font-semibold mb-3 mt-6">
               {text}
